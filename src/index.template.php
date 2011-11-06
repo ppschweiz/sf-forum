@@ -58,6 +58,9 @@ function template_html_above()
 	echo '<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"', $context['right_to_left'] ? ' dir="rtl"' : '', '>
 <head>';
+	// Favicon
+	echo '
+	<link rel="shortcut icon" href="', $settings['theme_url'], '/images/favicon.ico" type="image/x-icon" />';
 
 	// The ?fin20 part of this link is just here to make sure browsers don't cache it wrongly.
 	echo '
