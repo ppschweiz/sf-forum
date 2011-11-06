@@ -272,6 +272,9 @@ function template_main()
 			// Some columns require a different shade of the color class.
 			$alternate_class = $color_class . '2';
 
+			// This topic has a new post - we assume that the user is logged in
+			$has_new_post = ($topic['new'] && $context['user']['is_logged']);
+
 			echo '
 				<tr>
 					<td class="icon1 ', $color_class, '">
@@ -282,10 +285,10 @@ function template_main()
 					</td>
 					<td class="subject ', $alternate_class, '">
 						<div ', (!empty($topic['quick_mod']['modify']) ? 'id="topic_' . $topic['first_post']['id'] . '" onmouseout="mouse_on_div = 0;" onmouseover="mouse_on_div = 1;" ondblclick="modify_topic(\'' . $topic['id'] . '\', \'' . $topic['first_post']['id'] . '\');"' : ''), '>
-							', $topic['is_sticky'] ? '<strong>' : '', '<span id="msg_' . $topic['first_post']['id'] . '">', $topic['first_post']['link'], (!$context['can_approve_posts'] && !$topic['approved'] ? '&nbsp;<em>(' . $txt['awaiting_approval'] . ')</em>' : ''), '</span>', $topic['is_sticky'] ? '</strong>' : '';
+							', ($topic['is_sticky'] || $has_new_post) ? '<strong>' : '', '<span id="msg_' . $topic['first_post']['id'] . '">', $topic['first_post']['link'], (!$context['can_approve_posts'] && !$topic['approved'] ? '&nbsp;<em>(' . $txt['awaiting_approval'] . ')</em>' : ''), '</span>', ($topic['is_sticky'] || $has_new_post) ? '</strong>' : '';
 
 			// Is this topic new? (assuming they are logged in!)
-			if ($topic['new'] && $context['user']['is_logged'])
+			if ($has_new_post)
 					echo '
 							<a href="', $topic['new_href'], '" id="newicon' . $topic['first_post']['id'] . '"><img src="', $settings['lang_images_url'], '/new.gif" alt="', $txt['new'], '" /></a>';
 

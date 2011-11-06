@@ -216,7 +216,7 @@ function template_main()
 					}
 					echo '
 					<tr id="board_', $board['id'], '_children">
-						<td colspan="3" class="children windowbg">
+						<td colspan="3" class="children windowbg2">
 							<strong>', $txt['parent_boards'], '</strong>: ', implode(', ', $children), '
 						</td>
 					</tr>';

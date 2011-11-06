@@ -323,7 +323,7 @@ blockquote.bbc_standard_quote
 }
 blockquote.bbc_alternate_quote
 {
-	background-color: #e7eafc;
+	background-color: #FFF7EA;
 }
 
 /* A code block - maybe PHP ;). */
@@ -476,7 +476,7 @@ tr.catbg th a:link, tr.catbg th a:visited, tr.catbg2 td a:link, tr.catbg2 td a:v
 .windowbg2
 {
 	color: #000;
-	background-color: #FFF7EA;/*#FBF8F2;*/
+	background-color: #FFF9EE;/*#FFF7EA;/*#FBF8F2;*/
 }
 .windowbg3
 {
@@ -500,6 +500,19 @@ div.pagesection div.floatright input
 .pagelinks
 {
 	padding: 0.6em 0 0.4em 0;
+}
+
+/* Pager / Pagelist */
+.navPages
+{
+	background: #FFF;
+	padding: 0pt 4px;
+	border: 1px solid #A57F57;
+	font-size: 0.85em;
+}
+.pagelinks .navPages
+{
+	font-size: 0.75em;
 }
 
 /* Colors for background of posts requiring approval */
