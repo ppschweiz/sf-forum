@@ -251,6 +251,7 @@ function template_main()
 				</tr>';
 		}
 
+		$cnt = 0;
 		foreach ($context['topics'] as $topic)
 		{
 			// Is this topic pending approval, or does it have any posts pending approval?
@@ -270,7 +271,11 @@ function template_main()
 				$color_class = 'windowbg';
 
 			// Some columns require a different shade of the color class.
-			$alternate_class = $color_class . '2';
+			if ($color_class == 'windowbg') {
+				$alternate_class = $color_class = 'windowbg' . (++$cnt%2 ? '' : '2');
+			} else {
+				$alternate_class = $color_class . '2';
+			}
 
 			// This topic has a new post - we assume that the user is logged in
 			$has_new_post = ($topic['new'] && $context['user']['is_logged']);
@@ -389,7 +394,7 @@ function template_main()
 		if (!empty($settings['display_who_viewing']))
 		{
 			echo '
-				<tr class="windowbg2 whos_viewing">
+				<tr class="windowbg4 whos_viewing">
 					<td colspan="', !empty($context['can_quick_mod']) ? '6' : '5', '" class="smalltext">';
 			if ($settings['display_who_viewing'] == 1)
 				echo count($context['view_members']), ' ', count($context['view_members']) === 1 ? $txt['who_member'] : $txt['members'];

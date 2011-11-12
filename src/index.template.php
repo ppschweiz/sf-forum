@@ -97,7 +97,7 @@ function template_html_above()
 		var ajax_notification_text = "', $txt['ajax_in_progress'], '";
 		var ajax_notification_cancel_text = "', $txt['modify_cancel'], '";
 
-		var ppshipdomove = true;
+		var ppshipdomove = true,ypos=0;
 		var ppship,ppsmove=1,ppsmovetime=500,ppshipmin=23,ppshipmax=46;
 		function movePPShip() {
 			if (!ppshipdomove) return;
@@ -105,14 +105,21 @@ function template_html_above()
 			if (ppship) {
 				// imageCenter-72 is the lowest wave, -+300 from the lowest are the highest ones
 				var l = ppship.offsetLeft+ppsmove, w = parseInt(ppship.offsetParent.offsetWidth/2)-52, x = Math.abs((l-w)%600);
-				if (l > ppship.offsetParent.offsetWidth) l=0;
+				if (l > ppship.offsetParent.offsetWidth) l=0-ppship.offsetWidth;
 				ppship.style.left = l+\'px\';
 				if (x > 300)
-					ppship.style.top = (ppshipmin+( (ppshipmax-ppshipmin)/300*(x-300)) )+\'px\';
+					ppship.style.top = (ppshipmin + ypos + ( (ppshipmax-ppshipmin)/300*(x-300)) )+\'px\';
 				else
-					ppship.style.top = (ppshipmax-( (ppshipmax-ppshipmin)/300*(x)))+\'px\';
+					ppship.style.top = (ppshipmax + ypos - ( (ppshipmax-ppshipmin)/300*(x)))+\'px\';
 			}
 			window.setTimeout(movePPShip, ppsmovetime);
+		}
+		var d = new Date(' , date('Y, n, d, H, i, s, 0') , '); d.setMonth(d.getMonth()-1);
+		if (d.getMonth() == 4 && d.getDate() == 1) {
+			addLoadEvent(function() {
+				ppship = ppship == undefined ? document.getElementById(\'ppship\') : ppship;
+				if (ppship) { ppship.setAttribute("id","ppfool"); ypos = 57; ppsmovetime /= 20; }
+			});
 		}
 		addLoadEvent(movePPShip);
 	// ]]></script>';
@@ -166,13 +173,10 @@ function template_html_above()
 function template_body_above()
 {
 	global $context, $settings, $options, $scripturl, $txt, $modSettings;
-	$localized_logo = 'logo.png';
-  switch (strtolower($context['user']['language'])) {
-		case 'german': $localized_logo = 'logo_german.png'; break;
-		case 'italian': $localized_logo = 'logo_italian.png'; break;
-		case 'french': $localized_logo = 'logo_french.png'; break;
-		case 'english': $localized_logo = 'logo_english.png'; break;
-  }
+	$logo_path = 'pps/';
+	if (file_exists($settings['theme_dir'].DIRECTORY_SEPARATOR.'images'.DIRECTORY_SEPARATOR.strtolower($context['user']['language']).DIRECTORY_SEPARATOR.'logo.png')) {
+		$logo_path = strtolower($context['user']['language']).'/';
+	}
 
 	echo !empty($settings['forum_width']) ? '
 <div id="wrapper" style="width: ' . $settings['forum_width'] . '">' : '', '
@@ -181,7 +185,7 @@ function template_body_above()
 		<div class="frame">
 			<div id="top_section">
 				<h1 class="forumtitle">
-					<a href="', $scripturl, '"><img src="' . $settings['images_url'] . '/pps/'.$localized_logo.'" alt="' . $context['forum_name'] . '" /></a>
+					<a href="', $scripturl, '"><img src="' . $settings['images_url'] . '/'.$logo_path.'logo.png" alt="' . $context['forum_name'] . '" /></a>
 					<span class="siteslogan">', $settings['site_slogan'], '</span>
 				</h1>';
 
@@ -423,6 +427,12 @@ function template_menu()
 	echo '
 		<div id="main_menu">
 			<ul class="dropmenu" id="menu_nav">';
+
+	// PPS-Specific Menues
+	echo '
+				<li id="button_www"><a class="firstlevel" title="PPS Website" href="http://www.piratenpartei.ch/"><span class="firstlevel">WWW</span></a></li>
+				<li id="button_chat"><a class="firstlevel" title="PPS Chat" href="http://char.piratenpartei.ch/?channels=pps"><span class="firstlevel">CHAT</span></a></li>
+				<li id="button_org"><a class="firstlevel" title="PPS Organisation" href="http://projects.piratenpartei.ch/"><span class="firstlevel">ORG</span></a></li>';
 
 	foreach ($context['menu_buttons'] as $act => $button)
 	{

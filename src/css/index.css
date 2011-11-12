@@ -476,12 +476,17 @@ tr.catbg th a:link, tr.catbg th a:visited, tr.catbg2 td a:link, tr.catbg2 td a:v
 .windowbg2
 {
 	color: #000;
-	background-color: #FFF9EE;/*#FFF7EA;/*#FBF8F2;*/
+	background-color: #FFF9EE;/*#FFF6E5;/*#FFF7EA;/*#FBF8F2;*/
 }
 .windowbg3
 {
 	color: #000;
 	background-color: #cacdd3;
+}
+.windowbg4
+{
+	color: #000;
+	background-color: #FBF8F2;
 }
 
 /* the page navigation area */
@@ -1313,6 +1318,15 @@ ul#navigation li
 	top: 36px;
 	left: 75%;
 }
+#header #ppfool {
+	background: url(../images/pps/ppfool.png) 0 0 no-repeat;
+	display: block;
+	position: absolute;
+	width: 100px;
+	height: 37px;
+	top: 93px;
+	left: 75%;
+}
 
 /* the content section */
 #content_section
@@ -1590,7 +1604,7 @@ table.table_list tbody.content td.icon
 {
 	font-weight: bold;
 	font-size: 1em;
-	color: #d97b33;
+	color: #BD6B2C;/*#d97b33;*/
 }
 .table_list tbody.content td.children
 {
@@ -1749,6 +1763,9 @@ div.table_frame .table_list
 #messageindex
 {
 	clear: both;
+}
+.table_grid .subject a {
+	color: #BD6B2C;
 }
 /* the page navigation area */
 .childboards
