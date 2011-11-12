@@ -166,6 +166,13 @@ function template_html_above()
 function template_body_above()
 {
 	global $context, $settings, $options, $scripturl, $txt, $modSettings;
+	$localized_logo = 'logo.png';
+  switch (strtolower($context['user']['language'])) {
+		case 'german': $localized_logo = 'logo_german.png'; break;
+		case 'italian': $localized_logo = 'logo_italian.png'; break;
+		case 'french': $localized_logo = 'logo_french.png'; break;
+		case 'english': $localized_logo = 'logo_english.png'; break;
+  }
 
 	echo !empty($settings['forum_width']) ? '
 <div id="wrapper" style="width: ' . $settings['forum_width'] . '">' : '', '
@@ -174,7 +181,7 @@ function template_body_above()
 		<div class="frame">
 			<div id="top_section">
 				<h1 class="forumtitle">
-					<a href="', $scripturl, '"><img src="' . $settings['images_url'] . '/pps/logo.png" alt="' . $context['forum_name'] . '" /></a>
+					<a href="', $scripturl, '"><img src="' . $settings['images_url'] . '/pps/'.$localized_logo.'" alt="' . $context['forum_name'] . '" /></a>
 					<span class="siteslogan">', $settings['site_slogan'], '</span>
 				</h1>';
 
