@@ -85,7 +85,7 @@ function template_main()
 
 	echo '
 	<div id="boardindex_table">
-		<table class="table_list">';
+		<table class="table_list" cellspacing="0">';
 
 	/* Each category in categories is made up of:
 	id, href, link, name, is_collapsed (is it collapsed?), can_collapse (is it okay if it is?),
@@ -131,6 +131,7 @@ function template_main()
 			new (is it new?), id, name, description, moderators (see below), link_moderators (just a list.),
 			children (see below.), link_children (easier to use.), children_new (are they new?),
 			topics (# of), posts (# of), link, href, and last_post. (see below.) */
+			$cnt = 0; // use ' , (++$cnt%2 ?'':'2') , ' in <tr class="windowbg2"
 			foreach ($category['boards'] as $board)
 			{
 				echo '

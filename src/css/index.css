@@ -952,6 +952,9 @@ table.table_grid td
 table.table_grid tr.whos_viewing td, .cat_bar table.table_grid td, .cat_bar table.table_grid tr.catbg {
 	border-width: 0px;
 }
+table.table_list tbody.content td {
+	border-bottom: 1px solid #E1D9C5;/*#F5ECD6;*/
+}
 
 /* GenericList */
 .additional_row

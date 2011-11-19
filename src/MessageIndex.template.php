@@ -271,11 +271,12 @@ function template_main()
 				$color_class = 'windowbg';
 
 			// Some columns require a different shade of the color class.
-			if ($color_class == 'windowbg') {
+			/*if ($color_class == 'windowbg') {
 				$alternate_class = $color_class = 'windowbg' . (++$cnt%2 ? '' : '2');
 			} else {
 				$alternate_class = $color_class . '2';
-			}
+			}*/
+			$alternate_class = $color_class . '2';
 
 			// This topic has a new post - we assume that the user is logged in
 			$has_new_post = ($topic['new'] && $context['user']['is_logged']);
