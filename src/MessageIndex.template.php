@@ -417,6 +417,10 @@ function template_main()
 	<input type="hidden" name="' . $context['session_var'] . '" value="' . $context['session_id'] . '" />
 	</form>';
 
+	/* Request: https://projects.piratenpartei.ch/issues/1989 */
+	echo '<a href="', $scripturl, '?action=unread">', $txt['unread_since_visit'], '</a><br/>
+				<a href="', $scripturl, '?action=unreadreplies">', $txt['show_unread_replies'], '</a>';
+
 		echo '
 	<div class="pagesection">
 		', template_button_strip($normal_buttons, 'right'), '

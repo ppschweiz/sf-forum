@@ -173,7 +173,7 @@ function template_main()
 	// Show the page index... "Pages: [1]".
 	echo '
 			<div class="pagesection">
-				<div class="nextlinks">', $context['previous_next'], '</div>', template_button_strip($normal_buttons, 'right'), '
+				<!--<div class="nextlinks">', $context['previous_next'], '</div>-->', template_button_strip($normal_buttons, 'right'), '
 				<div class="pagelinks floatleft">', $txt['pages'], ': ', $context['page_index'], !empty($modSettings['topbottomEnable']) ? $context['menu_separator'] . ' &nbsp;&nbsp;<a href="#lastPost"><strong>' . $txt['go_down'] . '</strong></a>' : '', '</div>
 			</div>';
 
@@ -618,12 +618,16 @@ function template_main()
 			</div>
 			<a id="lastPost"></a>';
 
+	/* Request: https://projects.piratenpartei.ch/issues/1989 */
+	echo '<a href="', $scripturl, '?action=unread">', $txt['unread_since_visit'], '</a><br/>
+					<a href="', $scripturl, '?action=unreadreplies">', $txt['show_unread_replies'], '</a>';
+
 	// Show the page index... "Pages: [1]".
 	echo '
 			<div class="pagesection">
 				', template_button_strip($normal_buttons, 'right'), '
 				<div class="pagelinks floatleft">', $txt['pages'], ': ', $context['page_index'], !empty($modSettings['topbottomEnable']) ? $context['menu_separator'] . ' &nbsp;&nbsp;<a href="#top"><strong>' . $txt['go_up'] . '</strong></a>' : '', '</div>
-				<div class="nextlinks_bottom">', $context['previous_next'], '</div>
+				<!--<div class="nextlinks_bottom">', $context['previous_next'], '</div>-->
 			</div>';
 
 	if (!empty($settings['display_who_viewing']))

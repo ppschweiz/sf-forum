@@ -946,7 +946,7 @@ table.table_grid
 table.table_grid td
 {
 	padding: 3px;
-	border-bottom: 1px solid #F5ECD6;
+	border-bottom: 1px solid #E1D9C5;/*#F5ECD6;*/
 	/*border-right: 1px solid #fff;*/
 }
 table.table_grid tr.whos_viewing td, .cat_bar table.table_grid td, .cat_bar table.table_grid tr.catbg {
@@ -1946,17 +1946,26 @@ p#whoisviewing
 	margin: 0;
 	padding: 0.5em;
 }
+#forumposts div.windowbg2, #forumposts div.windowbg {
+	border-bottom: 1px solid #E1D9C5;/*#F5ECD6;*/
+}
+#forumposts div.windowbg2:first-child, #forumposts div.windowbg:first-child {
+	border-top: 1px solid #E1D9C5;/*#F5ECD6;*/
+}
+
 /* poster and postarea + moderation area underneath */
 .post_wrapper
 {
 	float:left;
 	width:100%;
-	padding: 5px 0;
+	/*padding: 5px 0;*/
+	padding: 0;
 }
 .poster
 {
 	float: left;
 	width: 15em;
+	margin: 5px 0;
 }
 .postarea, .moderatorbar
 {
@@ -1965,6 +1974,11 @@ p#whoisviewing
 .postarea div.flow_hidden
 {
 	width: 100%;
+	padding: 5px 0;
+	background: #F5ECD6;
+	border: 1px solid #E1D9C5;
+	border-width: 0 1px 1px;
+	border-radius: 0 0 10px 10px;
 }
 
 .moderatorbar
@@ -2016,7 +2030,7 @@ p#whoisviewing
 .messageicon
 {
 	float: left;
-	margin: 0 0.5em 0 0;
+	margin: 0 0.5em;/* 0 0;*/
 }
 .messageicon img
 {
@@ -2121,7 +2135,7 @@ ul.quickbuttons li.inline_mod_check
 {
 	padding: 1em 1em 2px 0;
 	margin: 0 1em 0 0;
-	border-top: 1px solid #99a;
+	/*border-top: 1px solid #99a;*/
 }
 img.smiley
 {
