@@ -394,8 +394,8 @@ function theme_linktree($force_show = false)
 			<li', ($link_num == count($context['linktree']) - 1) ? ' class="last"' : '', '>';
 
 		// Show something before the link?
-		if (isset($tree['extra_before']))
-			echo $tree['extra_before'];
+		/*if (isset($tree['extra_before']))
+			echo $tree['extra_before'];*/
 
 		// Show the link, including a URL if it should have one.
 		echo $settings['linktree_link'] && isset($tree['url']) ? '
