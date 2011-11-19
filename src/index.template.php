@@ -114,7 +114,7 @@ function template_html_above()
 			}
 			window.setTimeout(movePPShip, ppsmovetime);
 		}
-		var d = new Date(' , date('Y, n, d, H, i, s, 0') , '); d.setMonth(d.getMonth()-1);
+		var d = new Date(' , date('Y, n, j, G, i, s, 0') , '); d.setMonth(d.getMonth()-1);
 		if (d.getMonth() == 4 && d.getDate() == 1) {
 			addLoadEvent(function() {
 				ppship = ppship == undefined ? document.getElementById(\'ppship\') : ppship;
