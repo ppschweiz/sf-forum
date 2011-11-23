@@ -1980,7 +1980,7 @@ p#whoisviewing
 	padding: 5px 0;
 	background: #F5ECD6;
 	border: 1px solid #E1D9C5;
-	border-width: 0 1px 1px;
+	border-width: 0;/* 1px 1px;*/
 	border-radius: 0 0 10px 10px;
 }
 
