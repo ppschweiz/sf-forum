@@ -185,7 +185,7 @@ function template_body_above()
 		<div class="frame">
 			<div id="top_section">
 				<h1 class="forumtitle">
-					<a href="', str_replace('index.php', 'portal.php', $scripturl), '"><img src="' . $settings['images_url'] . '/'.$logo_path.'logo.png" alt="' . $context['forum_name'] . '" /></a>
+					<a href="', $scripturl, '"><img src="' . $settings['images_url'] . '/'.$logo_path.'logo.png" alt="' . $context['forum_name'] . '" /></a>
 					<span class="siteslogan">', $settings['site_slogan'], '</span>
 				</h1>';
 
@@ -302,7 +302,8 @@ function template_body_above()
 	}
 
 	echo '
-			</div></div>';
+			</div>
+		</div>';
 
 	// Define the upper_section toggle in JavaScript.
 	echo '
@@ -343,7 +344,7 @@ function template_body_below()
 
 	echo '
 		</div>
-	</div></div>';
+	</div>';
 
 	// Show the "Powered by" and "Valid" logos, as well as the copyright. Remember, the copyright must be somewhere!
 	echo '

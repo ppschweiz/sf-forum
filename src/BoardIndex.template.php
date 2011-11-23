@@ -475,7 +475,7 @@ function template_info_center()
 
 	echo '
 		</div>
-	</div></div>
+	<!--</div></div>-->
 	<span class="lowerframe"><span></span></span>';
 
 	// Info center collapse object.

@@ -160,7 +160,6 @@ function template_main()
 	<div class="tborder topic_table" id="messageindex">
 		<div class="cat_bar">
 		<table class="table_grid" cellspacing="0">
-			<thead>
 				<tr class="catbg">';
 
 		// Are there actually any topics to show?
@@ -197,7 +196,6 @@ function template_main()
 
 		echo '
 				</tr>
-			</thead>
 		</table></div>
 		<table class="table_grid" cellspacing="0">
 			<thead class="hidden_head">
