@@ -114,7 +114,7 @@ function template_html_above()
 			}
 			window.setTimeout(movePPShip, ppsmovetime);
 		}
-		var d = new Date(' , date('Y, n, j, G, i, s, 0') , '); d.setMonth(d.getMonth()-1);
+		var d = new Date(' , date('Y, n, j, G, '), (int)date('i') , ', ' , (int)date('s'), ', 0); d.setMonth(d.getMonth()-1);
 		if (d.getMonth() == 4 && d.getDate() == 1) {
 			addLoadEvent(function() {
 				ppship = ppship == undefined ? document.getElementById(\'ppship\') : ppship;
@@ -185,7 +185,7 @@ function template_body_above()
 		<div class="frame">
 			<div id="top_section">
 				<h1 class="forumtitle">
-					<a href="', $scripturl, '"><img src="' . $settings['images_url'] . '/'.$logo_path.'logo.png" alt="' . $context['forum_name'] . '" /></a>
+					<a href="', str_replace('index.php', 'portal.php', $scripturl), '"><img src="' . $settings['images_url'] . '/'.$logo_path.'logo.png" alt="' . $context['forum_name'] . '" /></a>
 					<span class="siteslogan">', $settings['site_slogan'], '</span>
 				</h1>';
 
@@ -389,6 +389,7 @@ function theme_linktree($force_show = false)
 		<ul>';
 
 	// Each tree item has a URL and name. Some may have extra_before and extra_after.
+
 	foreach ($context['linktree'] as $link_num => $tree)
 	{
 		echo '
