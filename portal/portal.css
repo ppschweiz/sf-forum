@@ -1,0 +1,45 @@
+#portalcontent1 { margin:0; padding:0; }
+#portalcontent2 { margin:0; padding:0; }
+#portalleft { float:left;width:200px;margin:0; padding:0; }
+#portalcenter { margin:0 280px 0 210px; }
+#portalright { float:right;width:270px;margin:0; padding:0; }
+#portalcleaner { clear:both; height:1px; font-size:1px; border:none; margin:0; padding:0; width: 100%;}
+#portalfooter { }
+#upper_section { padding: 15px;}
+#sectionmap { width: 100%; }
+div.roundframe ul { margin: 0; padding: 20px; }
+div.tweets ul { list-style: none; padding: 0; margin: 0; }
+div.tweets ul li { margin: 0; padding: 0 5px; border-top: 5px #dddddd solid; clear: both; }
+.tweetname { float: left; clear: left; margin-right: 10px; display: block; width: 48px; overflow: hidden; font-size: 10px; }
+.tweetavatar { float: left; clear: left; padding-right: 10px; }
+.twabox { width: 48px; text-align: center; overflow: hidden; display: inline-block; }
+.tweetavatar img { height: 48px; }
+.tweettext { display: block; }
+.tweettime { color: rgb(153, 153, 153) !important; font-size: 11px; float: right; }
+.tweetsource { font-size: 11px; }
+.retweetcount { display: none; }
+.boredtweet {  }
+.coldtweet { background-color: #ddffff; }
+.nicetweet { background-color: #ffffdd; }
+.hottweet { background-color: #ffdddd; }
+.awesometweet { background-color: #ffdddd; font-weight  }
+.admin_forum { background-color: #ddffff; }
+.admin_forum td { background-color: #ddffff; }
+div.portal ul { list-style: none; padding: 0; border-top: 5px solid #ddd;  }
+div.portal ul li { padding: 0 3px; }
+div.portal ul li:nth-child(even) { background: #fff7ea; }
+div.bullet ul { list-style-image: url(portal-lib/bullet-pps.png); }
+div.bullet ul li { padding: 0 3px; }
+div.bullet ul li:nth-child(even) { background: #fff7ea; }
+div.caledar { font-size: 11px; }
+div.calendar ul { list-style: none; padding: 0; border-top: 5px solid #ddd;  }
+div.calendar ul li { font-size: 12px; padding: 1px 3px; }
+div.calendar ul li:nth-child(even) { background: #fff7ea; }
+div.calendar ul li.dayseparator { background-color: #666; text-align: center; font-size: 12px; font-weight: bold; }
+div.calendar ul li.dayseparator a { color: white; }
+.eventtime { float: right; font-size: 11px; }
+.eventminute { font-size: 8px; position: relative; bottom: 4px; }
+.removeme { display: none; }
+.portalavatar { text-align: center; }
+.hicon { border: 1px #ddb solid; display:inline-block; border-right: none; }
+.hicon img { border-right: 1px #ddb solid; display:inline-block; }
