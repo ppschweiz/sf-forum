@@ -43,3 +43,5 @@ div.calendar ul li.dayseparator a { color: white; }
 .portalavatar { text-align: center; }
 .hicon { border: 1px #ddb solid; display:inline-block; border-right: none; }
 .hicon img { border-right: 1px #ddb solid; display:inline-block; }
+.newpm { display:inline-block; font-weight: bold; font-size: 20px; padding: 7px; text-shadow: 0 0 10px red; }
+#button_pm strong { display:inline-block; color: red; margin-top: 10px; }

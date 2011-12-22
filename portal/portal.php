@@ -87,7 +87,7 @@
 		<div id="upper_section" class="middletext">
 			<div class="user">
 				<script type="text/javascript" src="<?= $settings['default_theme_url'] ?>/scripts/sha1.js"></script>
-                                <?php ssi_welcome(); ?>
+                                <?php portal_welcome(); ?>
 			</div>
                 </div>
 		<script type="text/javascript"><!-- // --><![CDATA[

@@ -44,6 +44,43 @@ function pps($lang)
   }
 }
 
+function portal_welcome($output_method = 'echo')
+{
+        global $context, $txt, $scripturl;
+
+        if ($output_method == 'echo')
+        {
+                if ($context['user']['is_guest'])
+                {
+                    echo sprintf($txt['welcome_guest'], $txt['guest_title']);
+                }
+                else
+                {
+                    echo $txt['hello_member'], ' <strong>', $context['user']['name'], '</strong>';
+                    if (allowedTo('pm_read'))
+                    {
+                        echo ', ',  $txt['msg_alert_you_have'] .' <a href="' . $scripturl . '?action=pm">' . $context['user']['messages'] . ' ' . 
+                             ($context['user']['messages'] == '1' ? $txt['message_lowercase'] : $txt['msg_alert_messages']) . 
+                             '</a>' . $txt['newmessages4'] . ' ';
+                        if ($context['user']['unread_messages'] != '0') 
+                        {
+                            echo '<span class="newpm">';
+                        }                            
+                        echo $context['user']['unread_messages'] . ' ' . ($context['user']['unread_messages'] == '1' ? $txt['newmessages0'] : $txt['newmessages1']);
+                        if ($context['user']['unread_messages'] != '0') 
+                        {
+                            echo '</span>';
+                        }
+                    }
+                    echo '.';
+                }
+        }
+        // Don't echo... then do what?!
+        else
+                return $context['user'];
+}
+
+
 function getTopicIcon($topic)
 {
   switch($topic['board']['id'])
