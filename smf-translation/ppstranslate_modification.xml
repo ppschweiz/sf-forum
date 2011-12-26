@@ -11,5 +11,124 @@
 	<id>LukyLuke:PPSTranslate</id>
 	<version>0.0.1</version>
 
- <!-- Still in development, stay tuned ;) -->
+	<file name="$sourcedir/Load.php">
+		<operation>
+			<search position="before"><![CDATA[		// If there aren't any, skip.
+		if ($smcFunc['db_num_rows']($request) > 0)
+		{
+			$row = $smcFunc['db_fetch_assoc']($request);]]></search>
+			<add><![CDATA[
+
+			// LukyLuke: pps_smf_translate: Translate some strings
+			pps_smf_translate($row['bname']);
+			pps_smf_translate($row['description']);
+			pps_smf_translate($row['cname']);]]></add>
+		</operation>
+		<operation>
+			<search position="before"><![CDATA[	$context['current_subaction'] = isset($_REQUEST['sa']) ? $_REQUEST['sa'] : null;
+	if (isset($modSettings['load_average']))
+		$context['load_average'] = $modSettings['load_average'];]]></search>
+			<add><![CDATA[
+
+	// LukyLuke: pps_smf_translate: Load ISO-639-1 language
+	pps_smf_parselanguage($context['user']);
+	pps_smf_translate($context['forum_name']);
+	pps_smf_translate($settings['site_slogan']);
+	$context['forum_name_html_safe'] = $smcFunc['htmlspecialchars']($context['forum_name']);]]></add>
+		</operation>
+	</file>
+
+	<file name="$sourcedir/Subs-BoardIndex.php">
+		<operation>
+			<search position="before"><![CDATA[	// Start with an empty array.
+	if ($boardIndexOptions['include_categories'])
+		$categories = array();
+	else
+		$this_category = array();
+
+	// Run through the categories and boards (or only boards)....
+	while ($row_board = $smcFunc['db_fetch_assoc']($result_boards))
+	{]]></search>
+			<add><![CDATA[		// LukyLuke: pps_smf_translate: Translate some strings
+		pps_smf_translate($row_board['cat_name']);
+		pps_smf_translate($row_board['board_name']);
+		pps_smf_translate($row_board['description']);
+
+]]></add>
+		</operation>
+		<operation>
+			<search position="after"><![CDATA[	return empty($loaded_ids) ? false : $loaded_ids;
+}]]></search>
+			<add><![CDATA[
+	// LukyLuke: pps_smf_translate: Translate 'member_group' and 'post_group'
+	for ($i = 0; $i < count($user_profile); $i++) {
+		pps_smf_translate($user_profile[$i]['member_group']);
+		pps_smf_translate($user_profile[$i]['post_group']);
+	}
+]]></add>
+		</operation>
+	</file>
+
+	<file name="$sourcedir/Subs-List.php">
+		<operation>
+			<search position="before"><![CDATA[			// Allow for basic formatting.
+			if (!empty($column['data']['comma_format']))
+				$cur_data['value'] = comma_format($cur_data['value']);
+			elseif (!empty($column['data']['timeformat']))
+				$cur_data['value'] = timeformat($cur_data['value']);]]></search>
+			<add><![CDATA[
+
+			// LukyLuke: pps_smf_translate: Try to Translate all Values inside a List/Table
+			pps_smf_translate($cur_data['value']);]]></add>
+		</operation>
+	</file>
+
+	<file name="$sourcedir/Profile-View.php">
+		<operation>
+			<search position="before"><![CDATA[		// Do the code.
+		$row['body'] = parse_bbc($row['body'], $row['smileys_enabled'], $row['id_msg']);]]></search>
+			<add><![CDATA[
+		// LukyLuke: pps_smf_translate: Translate the Forum-Name
+		pps_smf_translate($row['bname']);]]></add>
+		</operation>
+
+		<operation>
+			<search position="after"><![CDATA[	// Put it in the right order.
+	ksort($context['posts_by_time']);
+}]]></search>
+			<add><![CDATA[	// LukyLuke: pps_smf_translate: Translate Board-Names in statistics
+	for ($i = 0; $i < count($context['popular_boards']); $i++) {
+		pps_smf_translate($context['popular_boards'][$i]['link']);
+	}
+	for ($i = 0; $i < count($context['board_activity']); $i++) {
+		pps_smf_translate($context['board_activity'][$i]['link']);
+	}
+]]></add>
+		</operation>
+	</file>
+	<file name="$sourcedir/Profile-Modify.php">
+		<operation>
+			<search position="before"><![CDATA[		$context['member_groups'][$row['id_group']] = array(
+			'id' => $row['id_group'],
+			'name' => $row['group_name'],
+			'is_primary' => $cur_profile['id_group'] == $row['id_group'],
+			'is_additional' => in_array($row['id_group'], $curGroups),
+			'can_be_additional' => true,
+			'can_be_primary' => $row['hidden'] != 2,
+		);]]></search>
+			<add><![CDATA[
+		// LukyLuke: pps_smf_translate: Translate the Member-Groupname
+		pps_smf_translate($context['member_groups'][$row['id_group']]['name']);]]></add>
+		</operation>
+	</file>
+
+<!--
+		<operation>
+			<search position="before"><![CDATA[ ]]></search>
+			<add><![CDATA[ ]]></add>
+		</operation>
+-->
+
 </modification>
+
+
