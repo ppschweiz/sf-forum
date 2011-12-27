@@ -22,22 +22,22 @@
 */
 
 function pps_smf_translate(&$string) {
-	global $user_info, $firephp;
+	global $user_info;//, $firephp;
 	if (!array_key_exists('iso639-1', $user_info)) {
 		$user = array('language' => $user_info['language']);
 		pps_smf_parselanguage($user);
 	}
+	if (substr_count($string, '{$') <= 0) return;
+	//$firephp->log('String: '.$string);
+	$count = 0;
+	$string = preg_replace('/\{.*?(\$'.strtoupper($user_info['iso639-1']).'\:)(.*?)(;\$.*\}|;?\})/smi', '\\2', $string, -1, $count);
+	//$firephp->log('Replaced: '.$count);
 
-	$match = array();
-	if (preg_match('/\{.*?(\$'.strtoupper($user_info['iso639-1']).'\:)(.*?)(;\$|;?\})/smi', $string, $match)) {
-		$string = $match[2];
-		return;
-	}
-
-	if (substr_count($string, '{$') > 0) {
-		$string = preg_replace('/\{\$..\:(.*?)(;\$|;?\})/smi', '\\1', $string);
-		$firephp->log($string);
-	}
+	$count = 0;
+	$string = preg_replace('/\{\$..\:(.*?)(;\$|;?\})/smi', '\\1', $string, -1, $count);
+	//$firephp->log('Default: '.$count);
+	//$firephp->log('Replaced: '.$string);
+	return;
 }
 
 function pps_smf_parselanguage(&$user) {

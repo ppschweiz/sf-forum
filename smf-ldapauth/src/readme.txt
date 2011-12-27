@@ -10,4 +10,4 @@ Existing Users in the SMF-Databse will still be able to login after this Modific
 
 If you don't want to store LDAP-Users in the SMF-Database - so they are able to login after you uninstall this Modification, you should uncheck "Store LDAP Password".
 
-greets, LukyLuke <lukas.zurschmiede@piratenpartei.ch>
+greets, LukyLuke <l.zurschmiede@delightsoftware.com>

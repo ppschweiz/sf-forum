@@ -1,0 +1,18 @@
+The Main GIT-Repository holds all extensions made for the PiratePatrty of switzerland
+
+Most Modules are here as Subtrees, which allows you to have different repositories in
+one single repository. It's like submodules, with the difference that the master
+repository holds the complete source and not only a "link" to the other modules.
+
+To use git-subtree, first install the git-extension:
+  https://github.com/apenwarr/git-subtree
+
+after add your remote-repository and fetch the states:
+  git remote add REMOTE_NAME REPOSITORY
+  git fetch REMOTE_NAME
+
+If you have added a remote repository, fetch the contents into a Subdirectory
+  git subtree add -P DIRECTORY --squash REMOTE_NAME master
+
+If you make some changes, you can commit and push them
+  git subtree push -P DIRECTORY REMOTE_NAME master
