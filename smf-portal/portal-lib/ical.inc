@@ -61,8 +61,7 @@ function renderDaySeperator($event, &$lastevent, $txt)
     return '<li class="dayseparator"><a href="'.$link.'">'.$txt['calendar_today'].'</a></li>'.
            '<li class="removeme"></li>';
   }
-
- return '<li class="dayseparator"><a href="'.$link.'">'.$event->dtstart['value']['day'].' '.$txt['months_short'][$event->dtstart['value']['month']].' '.$event->dtstart['value']['year'].'</a></li>'.
+ return '<li class="dayseparator"><a href="'.$link.'">'.$event->dtstart['value']['day'].' '.$txt['months_short'][intval($event->dtstart['value']['month'])].' '.$event->dtstart['value']['year'].'</a></li>'.
         '<li class="removeme"></li>';
 }
 

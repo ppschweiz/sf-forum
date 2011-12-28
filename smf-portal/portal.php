@@ -174,6 +174,7 @@
 			                <a href="http://ai.<?= languageDomain($user_info['language']) ?>">AI</a>,
 			                <a href="http://ar.<?= languageDomain($user_info['language']) ?>">AR</a>,
 			                <a href="http://be.<?= languageDomain($user_info['language']) ?>">BE</a>,
+			                <a href="http://bl.<?= languageDomain($user_info['language']) ?>">BL</a>,
 			                <a href="http://bs.<?= languageDomain($user_info['language']) ?>">BS</a>,
 			                <a href="http://fr.<?= languageDomain($user_info['language']) ?>">FR</a>,
 			                <a href="http://ge.<?= languageDomain($user_info['language']) ?>">GE</a>,
