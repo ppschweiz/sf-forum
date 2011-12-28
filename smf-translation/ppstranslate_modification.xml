@@ -106,6 +106,7 @@
 ]]></add>
 		</operation>
 	</file>
+
 	<file name="$sourcedir/Profile-Modify.php">
 		<operation>
 			<search position="before"><![CDATA[		$context['member_groups'][$row['id_group']] = array(
@@ -122,6 +123,79 @@
 		</operation>
 	</file>
 
+	<file name="$sourcedir/Groups.php">
+		<operation>
+			<search position="before"><![CDATA[$context['group'] = $smcFunc['db_fetch_assoc']($request);
+	$smcFunc['db_free_result']($request);]]></search>
+			<add><![CDATA[
+	// LukyLuke: pps_smf_translate: Translate the Groupname and -description
+	pps_smf_translate($context['group']['name']);
+	pps_smf_translate($context['group']['description']);
+]]></add>
+		</operation>
+	</file>
+
+	<file name="$sourcedir/ManagePermissions.php">
+		<operation>
+			<search position="before"><![CDATA[	foreach ($context['groups'] as $id => $data)
+	{
+		if ($data['href'] != '')
+			$context['groups'][$id]['link'] = '<a href="' . $data['href'] . '">' . $data['num_members'] . '</a>';]]></search>
+			<add><![CDATA[
+		// LukyLuke: pps_smf_translate: Translate the Groupname and possible children (inherited groups)
+		pps_smf_translate($context['groups'][$id]['name']);
+		if (is_array($context['groups'][$id]['children'])) {
+			foreach ($context['groups'][$id]['children'] as &$subgroup) {
+				pps_smf_translate($subgroup);
+			}
+		}]]></add>
+		</operation>
+		<operation>
+			<search position="after"><![CDATA[		$context['categories'][$catid] = array(]]></search>
+			<add><![CDATA[// LukyLuke: pps_smf_translate: Translate categoryname
+		pps_smf_translate($tree['node']['name']);
+]]></add>
+		</operation>
+		<operation>
+			<search position="after"><![CDATA[			$context['categories'][$catid]['boards'][$boardid] = array(]]></search>
+			<add><![CDATA[			// LukyLuke: pps_smf_translate: Translate boardname and -description
+			pps_smf_translate($boards[$boardid]['name']);
+			pps_smf_translate($boards[$boardid]['description']);
+]]></add>
+		</operation>
+	</file>
+
+	<file name="$sourcedir/ManageBoards.php">
+		<operation>
+			<search position="after"><![CDATA[$context['categories'][$catid] = array(]]></search>
+			<add><![CDATA[// LukyLuke: pps_smf_translate: Translate categoryname
+		pps_smf_translate($tree['node']['name']);
+]]></add>
+		</operation>
+		<operation>
+			<search position="after"><![CDATA[			$context['categories'][$catid]['boards'][$boardid] = array(]]></search>
+			<add><![CDATA[// LukyLuke: pps_smf_translate: Translate boardname and -description
+			pps_smf_translate($boards[$boardid]['name']);
+			pps_smf_translate($boards[$boardid]['description']);
+]]></add>
+		</operation>
+	</file>
+
+	<file name="$sourcedir/ManageMembers.php">
+		<operation>
+			<search position="before"><![CDATA[	$context['page_title'] = $txt['admin_members'];
+	$context['sub_template'] = 'search_members';]]></search>
+			<add><![CDATA[
+	// LukyLuke: pps_smf_translate: Translate all Membergroups and Postgroups
+	foreach ($context['membergroups'] as &$group) {
+		pps_smf_translate($group['name']);
+	}
+	foreach ($context['postgroups'] as &$group) {
+		pps_smf_translate($group['name']);
+	}]]></add>
+		</operation>
+	</file>
+
 <!--
 		<operation>
 			<search position="before"><![CDATA[ ]]></search>
@@ -130,5 +204,3 @@
 -->
 
 </modification>
-
-
