@@ -433,7 +433,7 @@ function template_menu()
 	// PPS-Specific Menues
 	echo '
 				<li id="button_www"><a class="firstlevel" title="PPS Website" href="http://www.piratenpartei.ch/"><span class="firstlevel">WWW</span></a></li>
-				<li id="button_chat"><a class="firstlevel" title="PPS Chat" href="http://char.piratenpartei.ch/?channels=pps"><span class="firstlevel">CHAT</span></a></li>
+				<li id="button_chat"><a class="firstlevel" title="PPS Chat" href="http://chat.piratenpartei.ch/?channels=pps"><span class="firstlevel">CHAT</span></a></li>
 				<li id="button_org"><a class="firstlevel" title="PPS Organisation" href="http://projects.piratenpartei.ch/"><span class="firstlevel">ORG</span></a></li>';
 
 	foreach ($context['menu_buttons'] as $act => $button)
