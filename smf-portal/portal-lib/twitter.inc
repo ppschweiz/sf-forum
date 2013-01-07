@@ -34,7 +34,7 @@ function getTweetAccount($lang)
     case "german_informal-utf8":
       return "ppsde";
     default:
-      return "ppsde";
+      return "ppsall";
   }
 }
 
@@ -180,9 +180,9 @@ function getRetweetCountClass($tweet)
       return "boredtweet";
     if ($tweet->retweet_count < 10)
       return "coldtweet";
-    if ($tweet->retweet_count < 100)
+    if ($tweet->retweet_count < 20)
       return "nicetweet";
-    if ($tweet->retweet_count < 1000)
+    if ($tweet->retweet_count < 100)
       return "hottweet";
     return "awesometweet";
 }

@@ -6,6 +6,8 @@
   require 'portal-lib/ical.inc'; 
   require 'portal-lib/helper.inc'; 
 
+  require 'portal-lib/Portal.'.$user_info['language'].'.inc'
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -71,10 +73,10 @@
 			<div class="navigate_section">
 				<ul>
 					<li>
-						<a href="/index.php"><span>PPS Forum</span></a>
+						<a href="/index.php"><span><?= $txt['pps_forum'] ?></span></a>
 					</li>
 					<li class="last">
-						<a href="/portal.php"><span>Forum Portal</span></a>
+						<a href="/portal.php"><span><?= $txt['pps_portal'] ?></span></a>
 					</li>
 				</ul>
 			</div>
@@ -87,7 +89,27 @@
 		<div id="upper_section" class="middletext">
 			<div class="user">
 				<script type="text/javascript" src="<?= $settings['default_theme_url'] ?>/scripts/sha1.js"></script>
-                                <?php portal_welcome(); ?>
+                                <?php 
+                                        portal_welcome(); 
+                                ?><br>
+                                <?php if (!empty($context['open_mod_reports']) && $context['show_open_reports']): ?>
+                                        <?= '<a href="', $scripturl, '?action=moderate;area=reports">', sprintf($txt['mod_reports_waiting'], $context['open_mod_reports']), '</a><br>' ?>
+                                <?php endif; ?>
+                                <?php if (!$user_info['is_guest']): ?>
+                                        <?php if (empty($user_info['ignoreboards'])): ?>
+                                                <?= $txt['ignore_no_boards'] ?>
+                                        <?php else: ?>
+                                                <?= $txt['ignore_following_boards'] ?>
+						<?php foreach ($user_info['ignoreboards'] as $board): ?>
+                                                        <?php loadBoard(); ?>
+							<a href="http://forum.piratenpartei.ch/index.php/board,<?= $board ?>.0.html">
+                                                                <?= $board_info['name'].", " ?>
+                                                        </a>
+						<?php endforeach; ?>
+                                        <?php endif; ?>
+                                        <?= $txt['configure_ignore_boards'] ?>
+                                        <a href="index.php?action=profile;area=ignoreboards"><?= $txt['configure_here'] ?></a><br>
+                                <?php endif; ?>
 			</div>
                 </div>
 		<script type="text/javascript"><!-- // --><![CDATA[
@@ -148,7 +170,8 @@
 					<h4 class="titlebg">
 						<span class="ie6_header floatleft">
 							<a href="http://www.piratenpartei.ch/sektionen"><img class="icon" src="portal-icons/pirate.png" alt="Sections" />
-							Sections</a>
+							     <?= $txt['sections'] ?>
+                                                        </a>
 						</span>
 					</h4>
 					<object id="svgObj" type="image/svg+xml" data="portal-icons/sections.svg" width="180" height="120">
@@ -180,13 +203,16 @@
 			                <a href="http://ge.<?= languageDomain($user_info['language']) ?>">GE</a>,
 			                <a href="http://lu.<?= languageDomain($user_info['language']) ?>">LU</a>,
 			                <a href="http://nw.<?= languageDomain($user_info['language']) ?>">NW</a>,
+			                <a href="http://ne.<?= languageDomain($user_info['language']) ?>">NE</a>,
 			                <a href="http://ow.<?= languageDomain($user_info['language']) ?>">OW</a>,
 			                <a href="http://sg.<?= languageDomain($user_info['language']) ?>">SG</a>,
 			                <a href="http://sh.<?= languageDomain($user_info['language']) ?>">SH</a>,
 			                <a href="http://sz.<?= languageDomain($user_info['language']) ?>">SZ</a>,
 			                <a href="http://tg.<?= languageDomain($user_info['language']) ?>">TG</a>,
+			                <a href="http://ti.<?= languageDomain($user_info['language']) ?>">TI</a>,
 			                <a href="http://ur.<?= languageDomain($user_info['language']) ?>">UR</a>,
 			                <a href="http://vd.<?= languageDomain($user_info['language']) ?>">VD</a>,
+			                <a href="http://vs.<?= languageDomain($user_info['language']) ?>">VS</a>,
 			                <a href="http://zg.<?= languageDomain($user_info['language']) ?>">ZG</a>,
 			                <a href="http://zh.<?= languageDomain($user_info['language']) ?>">ZH</a>
 				</div>
@@ -219,8 +245,6 @@
 						<?php endif; ?>
 					</p>
 				</div>
-			</div>		
-			<div id="portalright">
 				<div class="roundframe portal">
 					<?php $feed = new SimplePie('http://parrot.fm/?feed=rss'); ?>
 					<h4 class="titlebg">
@@ -235,6 +259,23 @@
 								<a href="<?= $item->get_permalink(); ?>"><?= $item->get_title(); ?></a>
 							</li>
 						<?php endforeach; ?>
+					</ul>
+				</div>		
+
+			</div>		
+			<div id="portalright">
+				<div class="roundframe portal">
+					<h4 class="titlebg">
+						<span class="ie6_header floatleft">
+							<a href="http://www.piratenpartei.ch/support"><img class="icon" src="portal-icons/pirate.png" alt="Support" />
+                                                                <?= $txt['support_title'] ?>
+							</a>
+						</span>
+					</h4>
+					<ul>
+						<li>
+                                                        <?= $txt['support_text'] ?>
+                                                </li>
 					</ul>
 				</div>		
 				<div class="roundframe tweets">
@@ -292,6 +333,16 @@
 				</div>		
 			</div>
 			<div id="portalcenter">
+                                <div class="roundframe latest">
+					<?php $feed = new SimplePie('http://www.'.languageDomain($user_info['language']).'/rss.xml'); ?>
+                                        <span class="titlebg">
+                                                <?= $txt['latest_news'] ?>
+                                        </span>
+                                        <?php $item = $feed->get_item(0); ?>
+					<a href="<?= $item->get_permalink(); ?>"><?= $item->get_title(); ?></a>
+                                </div>
+
+
 				<div class="tborder topic_table" id="unread">
 				<table class="table_grid" cellspacing="0">
 					<thead>
@@ -355,18 +406,18 @@
 				<h4 class="titlebg">
 					<span class="ie6_header floatleft">
 						<a href="http://chat.<?= languageDomain($user_info['language']) ?>/?channels=pps"><img class="icon" src="portal-icons/pirate.png" alt="Chat" /></a>
-						Chat
+						<?= $txt['chat'] ?>
 					</span>
 				</h4>
 				<p>
-					<iframe name="unterfenster" src="http://chat.<?= languageDomain($user_info['language']) ?>/?channels=pps<?= $user_info['is_guest'] ? "" : "&nick=".$user_info['name'] ?>" height="400" width="100%">Chatfenster</iframe>
+					<iframe name="chatbox" src="http://chat.<?= languageDomain($user_info['language']) ?>/?channels=pps<?= $user_info['is_guest'] ? "" : "&nick=".$user_info['name'] ?>" height="400" width="100%">Chatfenster</iframe>
 				</p>
 			</div>
 			<div class="roundframe">
 				<h4 class="titlebg">
 					<span class="ie6_header floatleft">
 						<img class="icon" src="<?= $settings['images_url'] ?>/icons/online.gif" alt="Users Online" />
-						Users Online
+						<?= $txt['users_online'] ?>
 					</span>
 				</h4>
 				<p class="last smalltext"><?php ssi_logOnline(); ?></p>
@@ -388,5 +439,6 @@
 		</ul>
 	</div></div>
 </div>
+
 </body>
 </html>

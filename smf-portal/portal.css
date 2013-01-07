@@ -45,3 +45,4 @@ div.calendar ul li.dayseparator a { color: white; }
 .hicon img { border-right: 1px #ddb solid; display:inline-block; }
 .newpm { display:inline-block; font-weight: bold; font-size: 20px; padding: 7px; text-shadow: 0 0 10px red; }
 #button_pm strong { display:inline-block; color: red; margin-top: 10px; }
+.wewantyou { text-align: center; background: #ffcccc; border-right: 5px solid white; border-bottom: 5px solid #ddd; border-left: 5px solid white; }
