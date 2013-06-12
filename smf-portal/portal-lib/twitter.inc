@@ -1,101 +1,98 @@
 <?php
 
+require 'tmhOAuth.inc';
+
+function getTweetAccount($lang)
+{
+    switch($lang)
+    {
+        case "french-utf8":
+            return "ppsfr";
+        case "italian-utf8":
+            return "ppsit";
+        case "german_informal-utf8":
+            return "ppsde";
+        default:
+            return "ppsall";
+    }
+}
+
 function twitterUserTimeline($user, $limit)
 {
-    $cachetime = 60;
-    $localfile = "/tmp/tweet_cache";
-    $url = "http://api.twitter.com/1/statuses/user_timeline.json?screen_name=".urlencode($user)."&include_rts=true&include_entities=true&count=".intval($limit);
+    $code = 200;
+    $cachetime = 90;
+    $result = array();
+     $localfile = "/tmp/tweet_cache_".$user;
 
     if (!file_exists($localfile))
     {
-      touch($localfile);
-      chmod($localfile, 0666); 
-
-      fetchfeed($url, $localfile);
+        touch($localfile);
+        chmod($localfile, 0666);
+		
+        $code = fetchfeed($localfile, $limit);
     }
     else if ((time()-filemtime($localfile))>$cachetime)
     {
-      fetchfeed($url, $localfile);
+        $code = fetchfeed($localfile, $limit);
     }
 
     $json_data = json_decode(file_get_contents($localfile));
 
-    return $json_data;
+    if (isset($json_data) && $code === 200)
+    {
+        foreach($json_data as $tweet)
+        {
+            array_push($result, array(
+                'Ago' => twitterTime($tweet->created_at),
+                'Avatar' => isset($tweet->retweeted_status) ? $tweet->retweeted_status->user->profile_image_url : $tweet->user->profile_image_url,
+                'Content' => tweetContent($tweet),
+                'Name' => isset($tweet->retweeted_status) ? $tweet->retweeted_status->user->name : $tweet->user->name,
+                'RetweetCount' => $tweet->retweet_count,
+                'RetweetCountClass' => retweetCountClass($tweet),
+                'ScreenName' => isset($tweet->retweeted_status) ? $tweet->retweeted_status->user->screen_name : $tweet->user->screen_name,
+                'Source' => $tweet->source,
+                'UserDescription' => isset($tweet->retweeted_status) ? $tweet->retweeted_status->user->description : $tweet->user->description
+            ));
+        }
+    }
+    else
+    {
+        $error = "error unknown";
+        if  (isset($json_data)) { $error = $json_data->errors[0]->message;}
+        array_push($result, array(
+            'Ago' => 'now',
+            'Avatar' => '',
+            'Content' => 'The Twitter-Feed has a problem: '.$error,
+            'Name' => 'FailWhale',
+            'RetweetCount' => '0',
+            'RetweetCountClass' => 'awesometweet',
+            'ScreenName' => 'Fail Whale',
+            'Source' => 'Twitter.com',
+            'UserDescription' => ''
+        ));
+    }
+    return $result;
 }
 
-function getTweetAccount($lang)
+function fetchfeed($localfile, $limit)
 {
-  switch($lang)
-  {
-    case "french-utf8":
-      return "ppsfr";
-    case "italian-utf8":
-      return "ppsit";
-    case "german_informal-utf8":
-      return "ppsde";
-    default:
-      return "ppsall";
-  }
+     $tmhOAuth = new tmhOAuth(array(
+        'consumer_key' => '',
+        'consumer_secret' => '',
+        'user_token' => '',
+        'user_secret' => ''
+    ));
+
+    $code = $tmhOAuth->request('GET', $tmhOAuth->url('1.1/statuses/user_timeline'), array('screen_name' => , 'count' => $limit ));
+
+    $fp=fopen($localfile, "w");
+    fwrite($fp, $tmhOAuth->response['response']);
+    fclose($fp);
+
+   return $code;
 }
-
-
-function fetchfeed($url, $localfile)
-{
-  $contents=file_get_contents($url);
-  $fp=fopen($localfile, "w");
-  fwrite($fp, $contents);
-  fclose($fp);
-}
-
-function getAvatar($tweet)
-{
-    if ($tweet->retweeted_status)
-    {
-        return $tweet->retweeted_status->user->profile_image_url;
-    }
-    else 
-    {
-        return $tweet->user->profile_image_url;
-    }
-}
-
-function getName($tweet)
-{
-    if ($tweet->retweeted_status)
-    {
-        return $tweet->retweeted_status->user->name;
-    }
-    else 
-    {
-        return $tweet->user->name;
-    }
-}
-
-function getScreenName($tweet)
-{
-    if ($tweet->retweeted_status)
-    {
-        return $tweet->retweeted_status->user->screen_name;
-    }
-    else 
-    {
-        return $tweet->user->screen_name;
-    }
-}
-
-function getUserDescription($tweet)
-{
-    if ($tweet->retweeted_status)
-    {
-        return $tweet->retweeted_status->user->description;
-    }
-    else 
-    {
-        return $tweet->description;
-    }
-}
-
-function getTweetContent($tweet)
+	
+function tweetContent($tweet)
 {
     $text = $tweet->text;
 
@@ -123,17 +120,12 @@ function getTweetContent($tweet)
     return $text;
 }
 
-function getTimeAgo($tweet)
+function twitterTime($tweet)
 {
-    return twitter_time($tweet->created_at);
+    return timeAgo($tweet->created_at);
 }
 
-function getSource($tweet)
-{
-    return $tweet->source;
-}
-
-function twitter_time($a)
+function timeAgo($a)
 {
     //get current timestampt
     $b = strtotime("now"); 
@@ -169,12 +161,7 @@ function twitter_time($a)
     }
 }
 
-function getRetweetCount($tweet)
-{
-    return $tweet->retweet_count;
-}
-
-function getRetweetCountClass($tweet)
+function retweetCountClass($tweet)
 {
     if ($tweet->retweet_count < 5)
       return "boredtweet";

@@ -279,7 +279,6 @@
 					</ul>
 				</div>		
 				<div class="roundframe tweets">
-                                        <?php $tweets =  twitterUserTimeline(getTweetAccount($user_info['language']), 4);?>
 					<h4 class="titlebg">
 						<span class="ie6_header floatleft">
 							<a href="http://twitter.com/<?= getTweetAccount($user_info['language']) ?>"><img class="icon" src="portal-icons/twitter.png" alt="ppsde" />
@@ -287,14 +286,15 @@
 						</span>
 					</h4>
 					<ul>
+                        <?php $tweets =  twitterUserTimeline(getTweetAccount($user_info['language']), 4);?>
 						<?php foreach ($tweets as $tweet): ?>
-							<li class="tweet <?= getRetweetCountClass($tweet); ?>">
-	  							<span  title="<?php print getName($tweet).": ".getUserDescription($tweet); ?>" class="tweetname"><a href="http://twitter.com/<?php print getScreenName($tweet); ?>"><?= getScreenName($tweet); ?></a></span>
-								<span class="tweetavatar"><span class="twabox"><a title="<?php print getName($tweet).": ".getUserDescription($tweet); ?>" href="http://twitter.com/<?php print getScreenName($tweet); ?>"><img src="<?= getAvatar($tweet); ?>"></a></span></span>
-	  							<span class="tweettext"><?= getTweetContent($tweet); ?></span>
-								<span class="tweettime"><?= getTimeAgo($tweet); ?></span>
-								<span class="tweetsource">via <?= getSource($tweet); ?></span>
-								<span class="retweetcount"><?= getRetweetCount($tweet); ?></span>
+							<li class="tweet <?= $tweet['RetweetCountClass']; ?>">
+	  							<span  title="<?php print $tweet['ScreenName'].": ".$tweet['UserDescription']; ?>" class="tweetname"><a href="http://twitter.com/<?php print $tweet['ScreenName']; ?>"><?= $tweet['ScreenName']; ?></a></span>
+								<span class="tweetavatar"><span class="twabox"><a title="<?php print $tweet['Name'].": ".$tweet['UserDescription']; ?>" href="http://twitter.com/<?php print $tweet['ScreenName']; ?>"><img src="<?= $tweet['Avatar']; ?>"></a></span></span>
+	  							<span class="tweettext"><?= $tweet['Content']; ?></span>
+								<span class="tweettime"><?= $tweet['Ago']; ?></span>
+								<span class="tweetsource">via <?= $tweet['Source']; ?></span>
+								<span class="retweetcount"><?= $tweet['RetweetCount']; ?></span>
 							</li>
 						<?php endforeach; ?>
 					</ul>
