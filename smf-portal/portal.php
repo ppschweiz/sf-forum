@@ -380,13 +380,13 @@
 								</div>
 							</td>
 							<td class=" stats windowbg">
-								<?= $topic[replies]." ".$txt['replies']; ?>
+								<?= $topic['replies']." ".$txt['replies']; ?>
 								<br />
-								<?= $topic[views]." ".$txt['views']; ?>
+								<?= $topic['views']." ".$txt['views']; ?>
 							</td>
 							<td class=" lastpost windowbg2">
-								<?= $topic[time]; ?><br>
-								<?= $txt['by']." ".$topic[poster][link]; ?>
+								<?= $topic['time']; ?><br>
+								<?= $txt['by']." ".$topic['poster']['link']; ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>
