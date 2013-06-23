@@ -29,11 +29,11 @@ function twitterUserTimeline($user, $limit)
         touch($localfile);
         chmod($localfile, 0666);
 		
-        $code = fetchfeed($localfile, $limit);
+        $code = fetchfeed($localfile, $limit, $user);
     }
     else if ((time()-filemtime($localfile))>$cachetime)
     {
-        $code = fetchfeed($localfile, $limit);
+        $code = fetchfeed($localfile, $limit, $user);
     }
 
     $json_data = json_decode(file_get_contents($localfile));
@@ -74,7 +74,7 @@ function twitterUserTimeline($user, $limit)
     return $result;
 }
 
-function fetchfeed($localfile, $limit)
+function fetchfeed($localfile, $limit, $user)
 {
      $tmhOAuth = new tmhOAuth(array(
         'consumer_key' => '',
@@ -83,7 +83,7 @@ function fetchfeed($localfile, $limit)
         'user_secret' => ''
     ));
 
-    $code = $tmhOAuth->request('GET', $tmhOAuth->url('1.1/statuses/user_timeline'), array('screen_name' => , 'count' => $limit ));
+    $code = $tmhOAuth->request('GET', $tmhOAuth->url('1.1/statuses/user_timeline'), array('screen_name' => $user, 'count' => $limit ));
 
     $fp=fopen($localfile, "w");
     fwrite($fp, $tmhOAuth->response['response']);
