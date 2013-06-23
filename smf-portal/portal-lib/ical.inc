@@ -44,7 +44,8 @@ function getPirateEvents()
 
 function renderDaySeperator($event, &$lastevent, $txt)
 {
-  if ($event->dtstart['value']['year']  == $lastevent->dtstart['value']['year'] &&
+  if ($lastevent != NULL &&
+    $event->dtstart['value']['year']  == $lastevent->dtstart['value']['year'] &&
     $event->dtstart['value']['month']  == $lastevent->dtstart['value']['month'] &&
     $event->dtstart['value']['day']  == $lastevent->dtstart['value']['day'])
   {

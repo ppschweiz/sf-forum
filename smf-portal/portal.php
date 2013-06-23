@@ -241,7 +241,9 @@
 							<?= $context['user']['total_time_logged_in']['days'] ?><?= $txt['totalTimeLogged2']; ?>
 							<?= $context['user']['total_time_logged_in']['hours'] ?><?= $txt['totalTimeLogged3']; ?>
 							<?= $context['user']['total_time_logged_in']['minutes'] ?><?= $txt['totalTimeLogged4']; ?>
-							<div class="portalavatar"><?= $context['user']['avatar']['image'] ?></div>
+							<?php if (isset($context['user']['avatar']['image'])): ?>
+							    <div class="portalavatar"><?= $context['user']['avatar']['image'] ?></div>
+						    <?php endif; ?>
 						<?php endif; ?>
 					</p>
 				</div>

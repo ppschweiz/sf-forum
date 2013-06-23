@@ -43,7 +43,7 @@ function twitterUserTimeline($user, $limit)
         foreach($json_data as $tweet)
         {
             array_push($result, array(
-                'Ago' => twitterTime($tweet->created_at),
+                'Ago' => twitterTime($tweet),
                 'Avatar' => isset($tweet->retweeted_status) ? $tweet->retweeted_status->user->profile_image_url : $tweet->user->profile_image_url,
                 'Content' => tweetContent($tweet),
                 'Name' => isset($tweet->retweeted_status) ? $tweet->retweeted_status->user->name : $tweet->user->name,
